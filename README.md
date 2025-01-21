@@ -74,20 +74,28 @@ Tools
     Jest for testing 🧪
 
 Voici une proposition pour un README global attractif et bien structuré pour votre projet, avec des badges et des éléments visuels pour attirer l'attention :
-🌟 Code Learning Platform 🌟
+
+
+# 🌟 Code Learning Platform 🌟
 
 Welcome to the Code Learning Platform! 🚀 This project aims to empower aspiring developers to learn coding by practicing directly within an interactive web platform. 🎓💻
-✨ Features
+
+## ✨ Features
 
 🔹 Interactive coding lessons with real-time feedback.
 🔹 Built-in code editor for a hands-on learning experience.
 🔹 Progress tracking and achievements.
 🔹 Modern UI with Material-UI for a sleek, responsive design.
 🔹 Powered by a robust tech stack for speed and scalability.
-📂 Project Structure
+
+
+## 📂 Project Structure
 
 Here's how the project is organized for maintainability and scalability:
 
+
+
+```plaintext
 src/
 ├── components/      # Reusable UI components (buttons, headers, etc.)
 ├── features/        # Organized by features, each with components & Redux slices
@@ -98,6 +106,7 @@ src/
 ├── styles/          # Global styles and Material-UI theme configuration
 ├── utils/           # Helper functions and utilities
 └── assets/          # Static files like images and icons
+
 
 Each folder includes its own README.md file for detailed information. 🗂️
 🛠️ Tech Stack
@@ -123,7 +132,7 @@ Tools
 
 
 
-🧑‍💻 Authors
+## 🧑‍💻 Authors
 
 Developed with ❤️ by Chris Balla.
 📝 License
