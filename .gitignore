@@ -1,5 +1,5 @@
 # Logs
-logs
+logs/
 *.log
 npm-debug.log*
 yarn-debug.log*
@@ -7,18 +7,61 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-node_modules
-dist
-dist-ssr
-*.local
+# Node modules
+Back-end/node_modules/
+Front-end/node_modules/
+
+# Build output
+Front-end/dist/
+Front-end/build/
+Back-end/dist/
+
+# Environment files
+Back-end/.env
+Back-end/.env.local
+Back-end/.env.*.local
+Front-end/.env
+Front-end/.env.local
+Front-end/.env.*.local
 
 # Editor directories and files
-.vscode/*
+.vscode/
 !.vscode/extensions.json
-.idea
+.idea/
 .DS_Store
 *.suo
 *.ntvs*
 *.njsproj
 *.sln
 *.sw?
+
+# Dependency lock files
+Back-end/package-lock.json
+Front-end/package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Temporary files
+.tmp/
+*.tmp
+
+# Static assets
+Front-end/public/
+Front-end/src/assets/*.tmp
+
+# ESLint cache
+Front-end/.eslintcache
+
+# Test coverage
+Front-end/coverage/
+Back-end/coverage/
+.nyc_output/
+
+# OpenAPI Generated Files
+Back-end/docs/
+Back-end/generated-client/
+Back-end/generated-server/
+
+# TypeScript build (if applicable)
+*.tsbuildinfo
+node_modules

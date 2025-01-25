@@ -1,0 +1,141 @@
+openapi: 3.0.3
+info:
+  title: Coding Platform API
+  description: API documentation for the coding platform
+  version: 1.0.0
+
+servers:
+  - url: http://localhost:5000
+    description: Local server
+
+tags:
+  - name: Lessons
+    description: Operations related to managing lessons (create, retrieve, update, delete).
+
+paths:
+  /api/v1/lessons:
+    get:
+      summary: Get all lessons
+      tags:
+        - Lessons
+      responses:
+        '200':
+          description: A list of lessons
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id: 
+                      type: integer
+                    title: 
+                      type: string
+                      example: "Introduction to MS Windows"
+                    description:
+                      type: string
+                      example: "Learn all about MS Windows"
+    post:
+      summary: Create a new lesson
+      tags:
+        - Lessons
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                  example: "New Lesson Title"
+                description:
+                  type: string
+                  example: "Lesson description goes here"
+                content: 
+                  type: string 
+                  example: "Lesson content goes here"
+      responses:
+        '201':
+          description: Lesson created successfully
+
+  /api/v1/lessons/{id}:
+    get:
+      summary: Get a lesson by ID
+      tags: 
+        - Lessons
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+          description: The ID of the lesson to retrieve
+      responses:
+        '200':
+          description: Details of a specific lesson
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    example: 1
+                  title:
+                    type: string
+                    example: "Introduction to a subject"
+                  description:
+                    type: string 
+                    example: "Learn the basics of..."
+        '404':
+          description: Lesson not found
+    put:
+      summary: Update a lesson by ID 
+      tags:
+        - Lessons
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+          description: The ID of the lesson to update
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                  example: "Updated Lesson Title"
+                description:
+                  type: string
+                  example: "Updated description goes here."
+                content:
+                  type: string
+                  example: "Updated content goes here."
+      responses:
+        '200':
+          description: Lesson updated successfully
+        '404':
+          description: Lesson not found
+    delete:
+      summary: Delete a lesson by ID
+      tags:
+        - Lessons
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+          description: The ID of the lesson to delete
+      responses:
+        '204':
+          description: Lesson deleted successfully
+        '404':
+          description: Lesson not found
