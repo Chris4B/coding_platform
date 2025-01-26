@@ -1,12 +1,9 @@
-'use strict';
-
-const fs = require('fs');
-const path = require('path');
-const Sequelize = require('sequelize');
-const process = require('process');
+const fs = require("fs");
+const path = require("path");
+const Sequelize = require("sequelize");
 const basename = path.basename(__filename);
-const env = process.env.NODE_ENV || 'development';
-const config = require(__dirname + '/../config/config.json')[env];
+const env = process.env.NODE_ENV || "development";
+const config = require(__dirname + "/../config/config.json")[env];
 const db = {};
 
 let sequelize;
@@ -16,22 +13,26 @@ if (config.use_env_variable) {
   sequelize = new Sequelize(config.database, config.username, config.password, config);
 }
 
-fs
-  .readdirSync(__dirname)
-  .filter(file => {
+// Charger uniquement les fichiers qui retournent un modèle Sequelize
+fs.readdirSync(__dirname)
+  .filter((file) => {
     return (
-      file.indexOf('.') !== 0 &&
-      file !== basename &&
-      file.slice(-3) === '.js' &&
-      file.indexOf('.test.js') === -1
+      file.indexOf(".") !== 0 && // Ignore les fichiers cachés
+      file !== basename && // Ignore index.js
+      file.slice(-3) === ".js" // Ne prend que les fichiers .js
     );
   })
-  .forEach(file => {
+  .forEach((file) => {
     const model = require(path.join(__dirname, file))(sequelize, Sequelize.DataTypes);
-    db[model.name] = model;
+    if (model && model.name) { // Vérifie que le fichier retourne un modèle valide
+      db[model.name] = model;
+    } else {
+      console.warn(`Le fichier ${file} n'a pas retourné de modèle valide.`);
+    }
   });
 
-Object.keys(db).forEach(modelName => {
+// Configurer les associations (si elles existent)
+Object.keys(db).forEach((modelName) => {
   if (db[modelName].associate) {
     db[modelName].associate(db);
   }

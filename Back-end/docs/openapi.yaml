@@ -12,15 +12,18 @@ servers:
 tags:
   - name: Lessons
     description: Operations related to managing lessons (create, retrieve, update, delete).
+  - name: Courses
+    description: Operations related to managing courses (create, retrieve, update, delete).
 
 paths:
   /api/v1/lessons:
     get:
       summary: Get all lessons
+      description: Retrieve a list of all lessons in the system.
       tags:
         - Lessons
       responses:
-        '200':
+        "200":
           description: A list of lessons
           content:
             application/json:
@@ -29,9 +32,10 @@ paths:
                 items:
                   type: object
                   properties:
-                    id: 
+                    id:
                       type: integer
-                    title: 
+                      example: 1
+                    title:
                       type: string
                       example: "Introduction to MS Windows"
                     description:
@@ -39,6 +43,7 @@ paths:
                       example: "Learn all about MS Windows"
     post:
       summary: Create a new lesson
+      description: Add a new lesson to the system.
       tags:
         - Lessons
       requestBody:
@@ -54,17 +59,18 @@ paths:
                 description:
                   type: string
                   example: "Lesson description goes here"
-                content: 
-                  type: string 
+                content:
+                  type: string
                   example: "Lesson content goes here"
       responses:
-        '201':
+        "201":
           description: Lesson created successfully
 
   /api/v1/lessons/{id}:
     get:
       summary: Get a lesson by ID
-      tags: 
+      description: Retrieve the details of a specific lesson using its ID.
+      tags:
         - Lessons
       parameters:
         - in: path
@@ -74,7 +80,7 @@ paths:
             type: integer
           description: The ID of the lesson to retrieve
       responses:
-        '200':
+        "200":
           description: Details of a specific lesson
           content:
             application/json:
@@ -88,12 +94,13 @@ paths:
                     type: string
                     example: "Introduction to a subject"
                   description:
-                    type: string 
+                    type: string
                     example: "Learn the basics of..."
-        '404':
+        "404":
           description: Lesson not found
     put:
-      summary: Update a lesson by ID 
+      summary: Update a lesson by ID
+      description: Update the details of an existing lesson using its ID.
       tags:
         - Lessons
       parameters:
@@ -120,12 +127,13 @@ paths:
                   type: string
                   example: "Updated content goes here."
       responses:
-        '200':
+        "200":
           description: Lesson updated successfully
-        '404':
+        "404":
           description: Lesson not found
     delete:
       summary: Delete a lesson by ID
+      description: Remove a lesson from the system using its ID.
       tags:
         - Lessons
       parameters:
@@ -136,7 +144,182 @@ paths:
             type: integer
           description: The ID of the lesson to delete
       responses:
-        '204':
+        "204":
           description: Lesson deleted successfully
-        '404':
+        "404":
           description: Lesson not found
+
+  /api/v1/courses:
+    get:
+      summary: Get all courses
+      description: Retrieve a list of all available courses in the system.
+      tags:
+        - Courses
+      responses:
+        "200":
+          description: A list of courses
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                      example: 1
+                    name:
+                      type: string
+                      example: "Introduction to JavaScript"
+                    description:
+                      type: string
+                      example: "Learn JavaScript basics"
+                    category:
+                      type: string
+                      example: "Programming"
+                    status:
+                      type: string
+                      example: "Published"
+                    courseVersion:
+                      type: string
+                      example: "1.0.0"
+                    techVersion:
+                      type: string
+                      example: "ES6"
+    post:
+      summary: Create a new course
+      description: Add a new course to the system.
+      tags:
+        - Courses
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: "Introduction to React"
+                description:
+                  type: string
+                  example: "Learn React basics"
+                category:
+                  type: string
+                  example: "Programming"
+                status:
+                  type: string
+                  example: "Draft"
+                imageUrl:
+                  type: string
+                  example: "https://example.com/image.jpg"
+                techVersion:
+                  type: string
+                  example: "18.0.0"
+      responses:
+        "201":
+          description: Course created successfully
+
+  /api/v1/courses/{id}:
+    get:
+      summary: Get a course by ID
+      description: Retrieve the details of a specific course using its ID.
+      tags:
+        - Courses
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+          description: The ID of the course
+      responses:
+        "200":
+          description: Details of a specific course
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    example: 1
+                  name:
+                    type: string
+                    example: "Introduction to JavaScript"
+                  description:
+                    type: string
+                    example: "Learn JavaScript basics"
+                  category:
+                    type: string
+                    example: "Programming"
+                  status:
+                    type: string
+                    example: "Published"
+                  courseVersion:
+                    type: string
+                    example: "1.0.0"
+                  techVersion:
+                    type: string
+                    example: "ES6"
+        "404":
+          description: Course not found
+    put:
+      summary: Update a course by ID
+      description: Update the details of an existing course using its ID.
+      tags:
+        - Courses
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+          description: The ID of the course to update
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: "Updated Course Name"
+                description:
+                  type: string
+                  example: "Updated course description"
+                category:
+                  type: string
+                  example: "Updated category"
+                status:
+                  type: string
+                  example: "Review"
+                imageUrl:
+                  type: string
+                  example: "https://example.com/new-image.jpg"
+                techVersion:
+                  type: string
+                  example: "18.2.0"
+      responses:
+        "200":
+          description: Course updated successfully
+        "404":
+          description: Course not found
+    delete:
+      summary: Delete a course by ID
+      description: Remove a course from the system using its ID.
+      tags:
+        - Courses
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+          description: The ID of the course to delete
+      responses:
+        "204":
+          description: Course deleted successfully
+        "404":
+          description: Course not found

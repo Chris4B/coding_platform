@@ -63,6 +63,7 @@ module.exports = (sequelize, DataTypes) => {
     versionParts[1] += 1;
     versionParts[2] = 0;
     this.courseVersion = versionParts.join(".");
+    return this.courseVersion; // Retourner la nouvelle version si nécessaire
   };
 
   // Associations

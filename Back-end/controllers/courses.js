@@ -2,7 +2,9 @@ const { Course } = require("../models")
 
 exports.getCourses = async (req, res) => {
     try{
-        const courses = await Course.findAll();
+        const courses = await Course.findAll({
+            include: [{ association: "chapters" }], 
+          });
         res.status(200).json(courses)
     } catch (error) {
         res.status(500).json({error: "Failed to fetch courses"})
@@ -11,15 +13,17 @@ exports.getCourses = async (req, res) => {
 
 exports.getCourseById = async(req, res) =>{
     try {
-        const course =  await Course.findByPk(req.params.id);
+        const course = await Course.findByPk(req.params.id, {
+            include: [{ association: "chapters" }], 
+        });
         if(!course) {
-            return res.status(404).json({error: "Coruse not found"});
+            return res.status(404).json({error: "Course not found"});
         }
 
         res.status(200).json(course);
     
     }catch (error){
-        res.status.json({error: "failed to fetch course"})
+        res.status(500).json({error: "failed to fetch course"})
     }
 }; 
 
@@ -27,12 +31,12 @@ exports.createCourse = async(req, res) => {
     try{
         const course = await Course.create(req.body);
         res.status(201).json(course);
-    }catch{
-        res.status(400).json({error: "Failed to create course"});
+    }catch (error){
+        res.status(400).json({error: "Failed to create course", details: error.message });
     }
 };
 
-exports.updateCourse = async(req, res) {
+exports.updateCourse = async(req, res) => {
     try {
         const course = await Course.findByPk(req.params.id);
         if(!course) {
@@ -46,14 +50,14 @@ exports.updateCourse = async(req, res) {
 };
 
 exports.deleteCourse = async (req, res) => {
-    try{
-        const course = await Course.findByPk(req.params.id);
-        if(!course){
-            return res.status(404).json({error: "Course not found"});
-        }
-        await course.destroy();
-        res.status(204).send();
-    } catch(error){
-        res.status(500).json({ error: "Failed to delete course" });
+    try {
+      const course = await Course.findByPk(req.params.id);
+      if (!course) {
+        return res.status(404).json({ error: "Course not found" });
+      }
+      await course.destroy();
+      res.status(204).send(); // Pas de contenu, succès
+    } catch (error) {
+      res.status(500).json({ error: "Failed to delete course", details: error.message });
     }
-}
+};

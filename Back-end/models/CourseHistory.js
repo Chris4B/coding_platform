@@ -8,4 +8,6 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.JSON, 
         },
     }); 
+
+    return CourseHistory;
 }
