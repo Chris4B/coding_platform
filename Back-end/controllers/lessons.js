@@ -1,4 +1,4 @@
-// Données temporaires (remplacer par une base de données plus tard)
+
 let lessons = [];
 
 // Obtenir toutes les leçons

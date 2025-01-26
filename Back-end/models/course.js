@@ -16,19 +16,25 @@ module.exports = (sequelize, DataTypes) => {
             len: [10, 500], // Entre 10 et 500 caractères
           },
         },
+        category: {
+          type: DataTypes.STRING,
+          allowNull: false,
+          validate: {
+            len: [3, 50],
+          },
+        },
         status: {
           type: DataTypes.STRING,
-          defaultValue: "active",
+          defaultValue: "draft",
           validate: {
-            isIn: [["active", "Draft", "archived"]],
-          },
-          
+            isIn: [["Draft", "Review", "Published", "Archived"]],
+          }, 
         },
         imageUrl: {
           type: DataTypes.STRING,
           defaultValue: null,
           validate: {
-            isUrl: true, // Vérifie que l'URL est valide
+            isUrl: true, 
           },
         },
         courseVersion: {
