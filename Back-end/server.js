@@ -3,7 +3,8 @@ const cors = require("cors");
 const swaggerUi = require("swagger-ui-express");
 const yaml = require("yamljs");
 const bodyParser = require("body-parser");
-const lessonRoutesV1 = require("./routes/api/v1/lessons"); // Chemin relatif correct
+const lessonRoutesV1 = require("./routes/api/v1/lessons"); 
+const courseRoutes = require("./routes/api/v1/courses");
 const homeRoute = require("./routes/webRoutes/home");
 
 const app = express();
@@ -14,6 +15,7 @@ app.use(bodyParser.json());
 
 // Routes
 app.use("/api/v1/lessons", lessonRoutesV1);
+app.use("/api/v1/courses", courseRoutes);
 app.use("/", homeRoute);
 
 // charger le fichier OpenAPI
